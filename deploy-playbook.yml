@@ -1,0 +1,18 @@
+---
+#Ansible Playbook to build and run a Docker container
+ 
+- name: Playbook to deploy and run website baseed on Container
+  hosts: worker-vm
+  become: true
+  gather_facts: false
+
+  tasks:
+    - name: Run Docker container using my-php-website
+      docker_container:
+        name: my-php-proj
+        image: ankitanshu/my-php-proj
+        state: started
+        recreate: yes
+        detach: true
+        ports:
+          - "80:80"
