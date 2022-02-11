@@ -1,0 +1,24 @@
+---
+#Ansible Playbook to install Docker
+ 
+- name: Playbook to build and run Docker
+  hosts: worker-vm
+  become: true
+  gather_facts: false
+
+  tasks:
+    - name: Enable EPEL Repository
+      yum:
+        name: epel-release
+        state: latest
+    
+    - name: install docker
+      yum:
+        name: docker
+        state: present
+
+    - name: start docker
+      service:
+        name: docker
+        state: started
+        enabled: yes
